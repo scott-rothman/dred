@@ -6,7 +6,7 @@ function init() {
     var dataman = new Dataman;
     var navman = new Navman;
     var formman = new Formman(dataman);
-    var dreds = dataman.getDreds;
+    
     $('.inter_nav').on('click', function(e){
         e.preventDefault();
 
@@ -67,7 +67,6 @@ var Formman = function(dataman){
         original_input.find('button').html('-');
         original_input.find('button').data('action', 'remove_reason')
 
-
         original_input.data('position',next_reason_num);
         cloned_input.attr('name','dr'+next_reason_num);
         cloned_input.attr('id','dr'+next_reason_num);
@@ -78,21 +77,21 @@ var Formman = function(dataman){
         button.closest('section').remove();
     }
     this.submitDred = function() {
-        var dred_data = {},
+        var dred_data = Array(),
             dred_id = dataman.checkDredCount(),
             dred_reason_count = 0,
             looping_reason = '';
 
         dred_data[dred_id] = {};
-        dred_data[dred_id]['reasons'] = {};
         dred_data[dred_id]['name'] = $('#name').val();
+        dred_data[dred_id]['reasons'] = {};
         dred_data[dred_id]['date'] = $('#date').val();
         $('.dred_reason').each(function(){
             looping_reason = $(this).find('input[type="text"]').val();
             dred_data[dred_id]['reasons'][dred_reason_count] = looping_reason;
             dred_reason_count++;
         });
-        //dred_data[dred_id]['specific'] = $('#specific_reasons');
+        console.log(dred_data);
         dataman.addDred(dred_data);
     }
     this.fireAction = function(button) {
@@ -112,7 +111,8 @@ var Formman = function(dataman){
 var Dataman = function() {
     this.getDreds = function() {;
         if (typeof localStorage['dreds'] != 'undefined') {
-            var ar_dreds = JSON.parse(localStorage['dreds']);
+            var str_dreds = localStorage['dreds'];
+            var ar_dreds = JSON.parse(str_dreds);
         } else {
             var ar_dreds = new Array();
         }
@@ -121,13 +121,20 @@ var Dataman = function() {
     this.checkDredCount = function() {
         var ar_dreds = this.getDreds();
         var num_of_dreds = ar_dreds.length;
+        console.log('dreds so far: '+ num_of_dreds);
         return num_of_dreds;
     }
     this.addDred = function(data) {
         var ar_dreds = this.getDreds();
-        ar_dreds.push(data);
+        var str_dreds = "";
         console.log(ar_dreds);
-        //localStorage['dreds'] = JSON.stringify(ar_dreds);
+        //var ar_dreds_length = this.checkDredCount();
+        ar_dreds.push(data);
+        str_dreds = JSON.stringify(ar_dreds);
+        console.log(str_dreds);
+        console.log(localStorage);
+        localStorage['dreds'] = str_dreds;
+        console.log(localStorage);
     }
     this.removeDred = function(id) {
         var ar_dreds = this.getDreds();
@@ -135,7 +142,7 @@ var Dataman = function() {
         if(index > -1) {
             ar_dreds.splice(index, 1);
         }
-        localStorage['dreds'] = JSON.stringify(ar_dreds);
+        localStorage['dreds'] = ar_dreds;
     }
     this.editDred = function(id) {
 
