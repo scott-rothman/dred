@@ -5,7 +5,7 @@ $( document ).ready(function() {
 function init() {
     var dataman = new Dataman;
     var navman = new Navman;
-    var formman = new Formman(dataman);
+    var formman = new Formman(dataman, navman);
     
     $('.inter_nav').on('click', function(e){
         e.preventDefault();
@@ -42,7 +42,7 @@ var Navman = function(){
     };
 }
 
-var Formman = function(dataman){
+var Formman = function(dataman, navman){
     this.getFormAction = function(button) {
         var action_to_fire = button.data('action');
         return action_to_fire;
@@ -91,8 +91,10 @@ var Formman = function(dataman){
             dred_data['reasons'][dred_reason_count] = looping_reason;
             dred_reason_count++;
         });
-        console.log(dred_data);
+        //console.log(dred_data);
         dataman.addDred(dred_data);
+        dataman.updateDredList();
+        navman.displayScreen('list');
     }
     this.fireAction = function(button) {
         var action = button.data('action');
@@ -121,7 +123,7 @@ var Dataman = function() {
     this.checkDredCount = function() {
         var ar_dreds = this.getDreds();
         var num_of_dreds = ar_dreds.length;
-        console.log('dreds so far: '+ num_of_dreds);
+        //console.log('dreds so far: '+ num_of_dreds);
         return num_of_dreds;
     }
     this.addDred = function(data) {
@@ -145,5 +147,25 @@ var Dataman = function() {
     }
     this.completeDred = function(id) {
 
+    }
+    this.updateDredList = function() {
+        var ar_dreds = this.getDreds();
+        console.log(ar_dreds);
+        var total_dreds = ar_dreds.length,
+            x = 0,
+            cur_dred = '',
+            cur_dred_name = '',
+            cur_dred_date = '',
+            dreds_container = $('#dred_list');
+        dreds_container.html('');
+
+        while (x < total_dreds) {
+            cur_dred = ar_dreds[x];
+            cur_dred_name = cur_dred["name"];
+            cur_dred_date = cur_dred["date"];
+            dred_link = '<li><a href="#">'+cur_dred_name+' : '+cur_dred_date+'</a></li>';
+            dreds_container.append(dred_link);
+            x++;
+        }
     }
  }
