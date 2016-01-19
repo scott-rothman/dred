@@ -82,10 +82,11 @@ var Formman = function(dataman){
             dred_id = dataman.checkDredCount(),
             dred_reason_count = 0,
             looping_reason = '';
-            
+
         dred_data[dred_id] = {};
         dred_data[dred_id]['reasons'] = {};
         dred_data[dred_id]['name'] = $('#name').val();
+        dred_data[dred_id]['date'] = $('#date').val();
         $('.dred_reason').each(function(){
             looping_reason = $(this).find('input[type="text"]').val();
             dred_data[dred_id]['reasons'][dred_reason_count] = looping_reason;
