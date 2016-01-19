@@ -77,18 +77,18 @@ var Formman = function(dataman){
         button.closest('section').remove();
     }
     this.submitDred = function() {
-        var dred_data = Array(),
-            dred_id = dataman.checkDredCount(),
+        var dred_data = {},
+            dred_id = 0,
             dred_reason_count = 0,
             looping_reason = '';
 
-        dred_data[dred_id] = {};
-        dred_data[dred_id]['name'] = $('#name').val();
-        dred_data[dred_id]['reasons'] = {};
-        dred_data[dred_id]['date'] = $('#date').val();
+        dred_data['id'] = dred_id;
+        dred_data['name'] = $('#name').val();
+        dred_data['date'] = $('#date').val();
+        dred_data['reasons'] = {};
         $('.dred_reason').each(function(){
             looping_reason = $(this).find('input[type="text"]').val();
-            dred_data[dred_id]['reasons'][dred_reason_count] = looping_reason;
+            dred_data['reasons'][dred_reason_count] = looping_reason;
             dred_reason_count++;
         });
         console.log(dred_data);
@@ -127,14 +127,10 @@ var Dataman = function() {
     this.addDred = function(data) {
         var ar_dreds = this.getDreds();
         var str_dreds = "";
-        console.log(ar_dreds);
         //var ar_dreds_length = this.checkDredCount();
         ar_dreds.push(data);
         str_dreds = JSON.stringify(ar_dreds);
-        console.log(str_dreds);
-        console.log(localStorage);
         localStorage['dreds'] = str_dreds;
-        console.log(localStorage);
     }
     this.removeDred = function(id) {
         var ar_dreds = this.getDreds();
