@@ -1,0 +1,28 @@
+h1,h2,h3,h4,h5,p,a,span,li,label {
+    color: #FFFFFF;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 100;
+}
+input, button {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 100;
+}
+
+h1 {
+    margin: 0;
+    font-size: 6vw;
+    text-align: center;
+}
+button, input[type='text'], input[type='date'] {
+    font-size: 3vw;
+    height: 10vw;
+}
+li {
+    font-size: 4vw;
+}
+.label_large {
+    font-size: 4.5vw;
+}
+.box_label {
+    font-size: 3vw;
+}

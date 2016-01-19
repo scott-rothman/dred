@@ -1,0 +1,53 @@
+<form action="">
+    <section>
+        <div class="scaff one_col">
+            <label for="name">name:</label>
+            <input type="text" name="name" id="name" placeholder="what are you dreding?">
+        </div>
+    </section>
+    <section>
+        <div class="scaff one_col">
+            <label for="due">date / due date:</label>
+            <input type="date" name="name" id="name" placeholder="mm/dd/yyyy">
+        </div>
+    </section>
+    <section>
+        <div class="scaff two_col offset_left">
+            <label for="name">are there any specific reasons you're dreding this?</label>
+        </div>
+        <div class="scaff two_col offsetted_one">
+            <div class="radio_wrapper">
+                <label for="specific">yes</label>
+                <input class="inter_form" data-action="toggle_yes" type="radio" name="specific" value="y">
+            </div>
+            <div class="radio_wrapper">
+                <label for="specific">no</label>
+                <input class="inter_form" data-action="toggle_no" type="radio" name="specific" value="n" checked="checked">
+            </div>
+            <input type="hidden" name="specific_reasons" id="specific_reasons" value="n">
+        </div>
+    </section>
+    <div class="dred_reasons">
+        <section>
+            <div class="scaff one_col">
+                <label for="name">feel free to list as many reasons why:</label>
+            </div>
+        </section>
+        <section class="dred_reason" id="dred_reason_template" data-position="1">
+            <div class="scaff two_col offset_left_two">
+                <input type="text" name="dr1" id="dr1">
+            </div>
+            <div class="scaff two_col offsetted_two">
+                <button class="inter_form" data-action="add_reason">+</button>
+            </div>
+        </section>
+    </div>
+    <section>
+        <div class="scaff two_col">
+            <button class="inter_form" data-action="submit_dred">save event</button>
+        </div>
+        <div class="scaff two_col">
+            <button class="inter_form">delete event</button>
+        </div>
+    </section>
+</form>

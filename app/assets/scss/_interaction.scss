@@ -1,0 +1,15 @@
+.phase_two {
+    display: none !important;
+}
+.screen{
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+.dred_reasons {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
