@@ -3,8 +3,8 @@ $( document ).ready(function() {
 });
 
 function init() {
-    var dataman = new Dataman;
     var navman = new Navman;
+    var dataman = new Dataman(navman);
     var formman = new Formman(dataman, navman);
 
     $('.inter_nav').on('click', function(e){
@@ -112,7 +112,7 @@ var Formman = function(dataman, navman){
     };
 
 }
-var Dataman = function() {
+var Dataman = function(navman) {
     this.getDreds = function() {;
         if (typeof localStorage['dreds'] != 'undefined') {
             var str_dreds = localStorage['dreds'];
@@ -145,13 +145,21 @@ var Dataman = function() {
         localStorage['dreds'] = ar_dreds;
     }
     this.editDred = function(id) {
-
+        var ar_dreds = this.getDreds();
+        var dred_to_edit = ar_dreds[id];
+        navman.displayScreen('form');
+        $('#id').val(dred_to_edit['id']);
+        $('#name').val(dred_to_edit['name']);
+        $('#date').val(dred_to_edit['date']);
+        console.log(dred_to_edit);
     }
     this.completeDred = function(id) {
 
     }
     this.pageRefresh = function() {
         var ar_dreds = this.getDreds();
+        //Not sure if there is a better way to maintain scope of the fuction for later call
+        var proxy_dataman = this;
         console.log(ar_dreds);
         var total_dreds = ar_dreds.length,
             x = 0,
@@ -164,10 +172,15 @@ var Dataman = function() {
             cur_dred = ar_dreds[x];
             cur_dred_name = cur_dred["name"];
             cur_dred_date = cur_dred["date"];
-            dred_link = '<li><a href="#">'+cur_dred_name+' : '+cur_dred_date+'</a></li>';
+            dred_link = '<li><a href="#" class="inter_list" data-id="'+x+'">'+cur_dred_name+' : '+cur_dred_date+'</a></li>';
             dreds_container.append(dred_link);
             x++;
         }
+        $('.inter_list').on('click', function(e){
+            var id_to_edit = $(this).data('id');
+            proxy_dataman.editDred(id_to_edit);
+            //This call ^^^
+        });
         $('#dred_add')[0].reset()
     }
     
