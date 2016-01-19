@@ -78,10 +78,19 @@ var Formman = function(dataman){
         button.closest('section').remove();
     }
     this.submitDred = function() {
-        var dred_data = {};
-        var dred_id = dataman.checkDredCount();
+        var dred_data = {},
+            dred_id = dataman.checkDredCount(),
+            dred_reason_count = 0,
+            looping_reason = '';
+            
         dred_data[dred_id] = {};
+        dred_data[dred_id]['reasons'] = {};
         dred_data[dred_id]['name'] = $('#name').val();
+        $('.dred_reason').each(function(){
+            looping_reason = $(this).find('input[type="text"]').val();
+            dred_data[dred_id]['reasons'][dred_reason_count] = looping_reason;
+            dred_reason_count++;
+        });
         //dred_data[dred_id]['specific'] = $('#specific_reasons');
         dataman.addDred(dred_data);
     }
