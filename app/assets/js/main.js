@@ -6,10 +6,10 @@ function init() {
     var dataman = new Dataman;
     var navman = new Navman;
     var formman = new Formman(dataman, navman);
-    
+
     $('.inter_nav').on('click', function(e){
         e.preventDefault();
-
+        dataman.pageRefresh();
         var active_button = $(this);
         var next_screen = '';
         
@@ -20,12 +20,14 @@ function init() {
         if($(this).is('button')) {
             e.preventDefault();    
         }
-
         var active_button = $(this);
         var next_action = '';
         
         //next_action = formman.getFormAction(active_button);
         formman.fireAction(active_button);
+    });
+    $('.debug').on('click', function(e){
+        localStorage.clear();
     });
 }
 
@@ -93,7 +95,7 @@ var Formman = function(dataman, navman){
         });
         //console.log(dred_data);
         dataman.addDred(dred_data);
-        dataman.updateDredList();
+        dataman.pageRefresh();
         navman.displayScreen('list');
     }
     this.fireAction = function(button) {
@@ -108,8 +110,8 @@ var Formman = function(dataman, navman){
             this.submitDred();
         }
     };
-}
 
+}
 var Dataman = function() {
     this.getDreds = function() {;
         if (typeof localStorage['dreds'] != 'undefined') {
@@ -148,7 +150,7 @@ var Dataman = function() {
     this.completeDred = function(id) {
 
     }
-    this.updateDredList = function() {
+    this.pageRefresh = function() {
         var ar_dreds = this.getDreds();
         console.log(ar_dreds);
         var total_dreds = ar_dreds.length,
@@ -158,7 +160,6 @@ var Dataman = function() {
             cur_dred_date = '',
             dreds_container = $('#dred_list');
         dreds_container.html('');
-
         while (x < total_dreds) {
             cur_dred = ar_dreds[x];
             cur_dred_name = cur_dred["name"];
@@ -167,5 +168,7 @@ var Dataman = function() {
             dreds_container.append(dred_link);
             x++;
         }
+        $('#dred_add')[0].reset()
     }
+    
  }
