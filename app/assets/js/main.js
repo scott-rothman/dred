@@ -50,16 +50,16 @@ var Formman = function(dataman){
     this.dredReasonsToggle = function(status) {
         if (status == 'toggle_yes') {
             $('.dred_reasons').addClass('active');
-            $('#specific_reasons').value('y');
+            $('#specific_reasons').val('y');
         } else if (status == 'toggle_no') {
             $('.dred_reasons').removeClass('active');
-            $('#specific_reasons').value('n');
+            $('#specific_reasons').val('n');
         }
     }
     this.addDredReason = function() {
 
         var original_input = $('.dred_reason').last();
-        var cloned_input = original_input.clone(true, true);form
+        var cloned_input = original_input.clone(true, true);
         var current_reason_num = original_input.data('position');
         var next_reason_num = current_reason_num + 1;
         
