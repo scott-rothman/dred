@@ -77,6 +77,14 @@ var Formman = function(dataman){
     this.removeDredReason = function(button) {
         button.closest('section').remove();
     }
+    this.submitDred = function() {
+        var dred_data = {};
+        var dred_id = dataman.checkDredCount();
+        dred_data[dred_id] = {};
+        dred_data[dred_id]['name'] = $('#name').val();
+        //dred_data[dred_id]['specific'] = $('#specific_reasons');
+        dataman.addDred(dred_data);
+    }
     this.fireAction = function(button) {
         var action = button.data('action');
         if (action == 'add_reason') {
@@ -89,14 +97,6 @@ var Formman = function(dataman){
             this.submitDred();
         }
     };
-    this.submitDred = function() {
-        var dred_data = {};
-        var dred_id = dataman.checkDredCount();
-        dred_data[dred_id] = {};
-        dred_data[dred_id]['name'] = $('#name');
-        dred_data[dred_id]['specific'] = $('#specific_reasons');
-        dataman.addDred(dred_data);
-    }
 }
 
 var Dataman = function() {
@@ -116,7 +116,8 @@ var Dataman = function() {
     this.addDred = function(data) {
         var ar_dreds = this.getDreds();
         ar_dreds.push(data);
-        localStorage['dreds'] = JSON.stringify(ar_dreds);
+        console.log(ar_dreds);
+        //localStorage['dreds'] = JSON.stringify(ar_dreds);
     }
     this.removeDred = function(id) {
         var ar_dreds = this.getDreds();
