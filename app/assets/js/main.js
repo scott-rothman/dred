@@ -171,11 +171,24 @@ var Dataman = function() {
     this.editDred = function(id) {
         var ar_dreds = this.getDreds();
         var dred_to_edit = ar_dreds[id];
-        var dred_reasons = dred_to_edit['reasons'].length;
+        var dred_reasons = Object.keys(dred_to_edit['reasons']).length;
+        var x = 0;
+        var reason_text = '';
         navman.displayScreen('form');
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
         $('#date').val(dred_to_edit['date']);
+        $('.dred_reason').each(function(){
+            if ($(this).attr('id') != 'dred_reason_template') {
+                $(this).remove();
+            }
+        });
+        while (x <= dred_reasons) {
+            formman.addDredReason();
+            reason_text = dred_to_edit['reasons'][x];
+            $('.dred_reason input').eq(x).val(reason_text);
+            x++;
+        }
         //console.log(dred_to_edit);
     }
     this.saveDred = function(pos,data) {
