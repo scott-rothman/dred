@@ -3,9 +3,9 @@ $( document ).ready(function() {
 });
 
 function init() {
-    var navman = new Navman;
-    var dataman = new Dataman(navman);
-    var formman = new Formman(dataman, navman);
+    window.navman = new Navman;
+    window.dataman = new Dataman;
+    window.formman = new Formman;
 
     $('.inter_nav').on('click', function(e){
         e.preventDefault();
@@ -44,7 +44,7 @@ var Navman = function(){
     };
 }
 
-var Formman = function(dataman, navman){
+var Formman = function(){
     this.getFormAction = function(button) {
         var action_to_fire = button.data('action');
         return action_to_fire;
@@ -80,10 +80,18 @@ var Formman = function(dataman, navman){
     }
     this.submitDred = function() {
         var dred_data = {},
-            dred_id = 0,
             dred_reason_count = 0,
-            looping_reason = '';
+            counter,
+            looping_reason = '',
+            dreds = {},
+            dred_id,
+            was_edited;
 
+        if ($('#id').val() != '') {
+            dred_id = $('#id').val();
+        } else {
+            dred_id = dataman.checkDredCount() + 1;
+        }
         dred_data['id'] = dred_id;
         dred_data['name'] = $('#name').val();
         dred_data['date'] = $('#date').val();
@@ -93,8 +101,24 @@ var Formman = function(dataman, navman){
             dred_data['reasons'][dred_reason_count] = looping_reason;
             dred_reason_count++;
         });
-        //console.log(dred_data);
-        dataman.addDred(dred_data);
+        dreds = dataman.getDreds();
+        console.log(dred_data);
+        console.log(dreds);
+        dred_count = dataman.checkDredCount();
+        counter = 0;
+        if (dreds.length > 0) {
+            $.each(dreds, function(index, value) {
+                if (index == dred_id ) {
+                    cur_dred = value;
+                    dataman.saveDred(counter, dred_data);
+                    was_edited = 1;
+                }
+                counter++;
+            });
+        }
+        if (was_edited != 1) {
+            dataman.addDred(dred_data);    
+        }
         dataman.pageRefresh();
         navman.displayScreen('list');
     }
@@ -112,7 +136,7 @@ var Formman = function(dataman, navman){
     };
 
 }
-var Dataman = function(navman) {
+var Dataman = function() {
     this.getDreds = function() {;
         if (typeof localStorage['dreds'] != 'undefined') {
             var str_dreds = localStorage['dreds'];
@@ -147,11 +171,22 @@ var Dataman = function(navman) {
     this.editDred = function(id) {
         var ar_dreds = this.getDreds();
         var dred_to_edit = ar_dreds[id];
+        var dred_reasons = dred_to_edit['reasons'].length;
         navman.displayScreen('form');
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
         $('#date').val(dred_to_edit['date']);
-        console.log(dred_to_edit);
+        //console.log(dred_to_edit);
+    }
+    this.saveDred = function(pos,data) {
+        var ar_dreds = this.getDreds();
+        ar_dreds[pos]['id'] = data['id'];
+        ar_dreds[pos]['name'] = data['name'];
+        ar_dreds[pos]['date'] = data['date'];
+        str_dreds = JSON.stringify(ar_dreds);
+        localStorage['dreds'] = str_dreds;
+        this.pageRefresh();
+        navman.displayScreen('list');
     }
     this.completeDred = function(id) {
 
@@ -160,7 +195,7 @@ var Dataman = function(navman) {
         var ar_dreds = this.getDreds();
         //Not sure if there is a better way to maintain scope of the fuction for later call
         var proxy_dataman = this;
-        console.log(ar_dreds);
+        //console.log(ar_dreds);
         var total_dreds = ar_dreds.length,
             x = 0,
             cur_dred = '',
@@ -178,10 +213,13 @@ var Dataman = function(navman) {
         }
         $('.inter_list').on('click', function(e){
             var id_to_edit = $(this).data('id');
+            console.log('clicked:'+id_to_edit);
             proxy_dataman.editDred(id_to_edit);
             //This call ^^^
         });
-        $('#dred_add')[0].reset()
+        $('#dred_add')[0].reset();
+        dred_id = dataman.checkDredCount();
+        $('#id').attr('value',dred_id);
     }
     
  }
