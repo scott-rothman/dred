@@ -196,6 +196,7 @@ var Dataman = function() {
         ar_dreds[pos]['id'] = data['id'];
         ar_dreds[pos]['name'] = data['name'];
         ar_dreds[pos]['date'] = data['date'];
+        ar_dreds[pos]['reasons'] = data['reasons'];
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
         this.pageRefresh();
