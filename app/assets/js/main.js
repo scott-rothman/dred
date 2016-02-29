@@ -172,7 +172,7 @@ var Dataman = function() {
         var ar_dreds = this.getDreds();
         var dred_to_edit = ar_dreds[id];
         var dred_reasons = Object.keys(dred_to_edit['reasons']).length;
-        var x = 0;
+        var x = 1, z = 0;
         var reason_text = '';
         navman.displayScreen('form');
         $('#id').val(dred_to_edit['id']);
@@ -180,15 +180,21 @@ var Dataman = function() {
         $('#date').val(dred_to_edit['date']);
         $('.dred_reason').each(function(){
             if ($(this).attr('id') != 'dred_reason_template') {
-                $(this).remove();
+                $(this).remove(); 
             }
         });
-        while (x <= dred_reasons) {
+        while (x < (dred_reasons)) {
             formman.addDredReason();
-            reason_text = dred_to_edit['reasons'][x];
-            $('.dred_reason input').eq(x).val(reason_text);
             x++;
         }
+        while (z < (dred_reasons)) {
+            reason_text = dred_to_edit['reasons'][z];
+            $('.dred_reason input').eq(z).val(reason_text);
+            z++;
+        }
+        $('.dred_reason').last().find('button').data('action','add_reason');
+        $('.dred_reason').last().find('button').html('+');
+        //TO FIX ABOVE: Create separate loops for creating the new form inputs, then a second loop to go through each of them, match up the correct values, change the needed buttons, etc
         //console.log(dred_to_edit);
     }
     this.saveDred = function(pos,data) {
