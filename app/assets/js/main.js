@@ -6,7 +6,8 @@ function init() {
     window.navman = new Navman;
     window.dataman = new Dataman;
     window.formman = new Formman;
-
+    var total_dreds = dataman.checkDredCount();
+    $('#dred_num').html(total_dreds);
     $('.inter_nav').on('click', function(e){
         e.preventDefault();
         dataman.pageRefresh();
@@ -244,9 +245,15 @@ var Dataman = function() {
             //This call ^^^
         });
         $('#dred_add')[0].reset();
+
+        //set number of dreds on home screen
+        $('#dred_num').html(total_dreds);
+
+        //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
-        dred_id = dataman.checkDredCount();
-        $('#id').attr('value',dred_id);
+
+        //set id for next dred
+        $('#id').attr('value',total_dreds);
     }
     
  }
