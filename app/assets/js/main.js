@@ -53,9 +53,11 @@ var Formman = function(){
         if (status == 'toggle_yes') {
             $('.dred_reasons').addClass('active');
             $('#specific_reasons').val('y');
+            $('#radio_yes').prop("checked", true);
         } else if (status == 'toggle_no') {
             $('.dred_reasons').removeClass('active');
             $('#specific_reasons').val('n');
+            $('#radio_no').prop("checked", true);
         }
     }
     this.addDredReason = function() {
@@ -183,15 +185,19 @@ var Dataman = function() {
                 $(this).remove(); 
             }
         });
-        while (x < (dred_reasons)) {
-            formman.addDredReason();
-            x++;
+        if (dred_reasons > 1) {
+            while (x < (dred_reasons)) {
+                formman.addDredReason();
+                x++;
+            }
+            while (z < (dred_reasons)) {
+                reason_text = dred_to_edit['reasons'][z];
+                $('.dred_reason input').eq(z).val(reason_text);
+                z++;
+            }
+            formman.dredReasonsToggle('toggle_yes');
         }
-        while (z < (dred_reasons)) {
-            reason_text = dred_to_edit['reasons'][z];
-            $('.dred_reason input').eq(z).val(reason_text);
-            z++;
-        }
+        
         $('.dred_reason').last().find('button').data('action','add_reason');
         $('.dred_reason').last().find('button').html('+');
         //TO FIX ABOVE: Create separate loops for creating the new form inputs, then a second loop to go through each of them, match up the correct values, change the needed buttons, etc
@@ -238,6 +244,7 @@ var Dataman = function() {
             //This call ^^^
         });
         $('#dred_add')[0].reset();
+        formman.dredReasonsToggle('toggle_no');
         dred_id = dataman.checkDredCount();
         $('#id').attr('value',dred_id);
     }
