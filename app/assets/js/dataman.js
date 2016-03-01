@@ -34,7 +34,7 @@ var Dataman = function() {
         var ar_dreds = this.getDreds();
         var dred_to_edit = ar_dreds[id];
         var dred_reasons = Object.keys(dred_to_edit['reasons']).length;
-        var x = 1, z = 0;
+        var x = 0, z = 0;
         var reason_text = '';
         navman.displayScreen('form');
         $('#id').val(dred_to_edit['id']);

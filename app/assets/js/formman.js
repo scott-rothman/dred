@@ -55,8 +55,11 @@ var Formman = function(){
             dred_data['reasons'] = {};
             $('.dred_reason').each(function(){
                 looping_reason = $(this).find('input[type="text"]').val();
-                dred_data['reasons'][dred_reason_count] = looping_reason;
-                dred_reason_count++;
+                //Make sure it's not adding blank reasons
+                if (looping_reason != '') {
+                    dred_data['reasons'][dred_reason_count] = looping_reason;
+                    dred_reason_count++;    
+                }
             });
             dreds = dataman.getDreds();
             console.log(dred_data);
