@@ -67,7 +67,7 @@ var Dataman = function() {
                 $(this).remove(); 
             }
         });
-        if (dred_reasons > 1) {
+        if (dred_reasons > 0) {
             while (x < dred_reasons) {
                 formman.addDredReason();
                 x++;
@@ -110,7 +110,8 @@ var Dataman = function() {
             cur_dred_name = '',
             cur_dred_date = '',
             dreds_container = $('#dred_list'),
-            completed_dreds_container = $('#completed_list');
+            completed_dreds_container = $('#completed_list')
+            total_active_dreds = 0;
         dreds_container.html('');
         completed_dreds_container.html('');
         if(total_dreds > 0) {
@@ -144,7 +145,8 @@ var Dataman = function() {
         $('#dred_add')[0].reset();
 
         //set number of dreds on home screen
-        $('#dred_num').html(total_dreds);
+        total_active_dreds = this.checkDredCount();
+        $('#dred_num').html(total_active_dreds);
 
         //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
