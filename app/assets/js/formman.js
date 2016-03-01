@@ -87,6 +87,23 @@ var Formman = function(){
         }
         
     }
+    this.completeDred = function(id) {
+        var ar_dreds = dataman.getDreds();
+        var num_of_dreds = ar_dreds.length;
+        var x = 0;
+        while (x < num_of_dreds) {
+            console.log(ar_dreds[x]['id']);
+            console.log(ar_dreds[x])
+            if (ar_dreds[x]['id'] == id) {
+                ar_dreds[x]['completed'] = true;
+            }
+            x++;
+        }
+        str_dreds = JSON.stringify(ar_dreds);
+        localStorage['dreds'] = str_dreds;
+        dataman.pageRefresh();
+        navman.displayScreen('list');
+    }
     this.fireAction = function(button) {
         var action = button.data('action');
         if (action == 'add_reason') {
@@ -97,6 +114,9 @@ var Formman = function(){
             this.dredReasonsToggle(action);
         } else if (action == 'submit_dred') {
             this.submitDred();
+        } else if (action == 'complete_dred') {
+            var id = button.data('dred_id');
+            this.completeDred(id);
         }
     };
 

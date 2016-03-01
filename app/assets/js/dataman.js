@@ -11,8 +11,15 @@ var Dataman = function() {
     this.checkDredCount = function() {
         var ar_dreds = this.getDreds();
         var num_of_dreds = ar_dreds.length;
+        var x = 0, num_of_active_dreds = 0;
+        while (x < num_of_dreds) {
+            if (ar_dreds[x]['completed'] !== true) {
+                num_of_active_dreds++;
+            }
+            x++;
+        }
         //console.log('dreds so far: '+ num_of_dreds);
-        return num_of_dreds;
+        return num_of_active_dreds;
     }
     this.addDred = function(data) {
         var ar_dreds = this.getDreds();
@@ -37,6 +44,8 @@ var Dataman = function() {
         var x = 0, z = 0;
         var reason_text = '';
         navman.displayScreen('form');
+        $('.dred_complete').addClass('active');
+        $('.dred_complete').data('dred_id',dred_to_edit['id']);
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
         $('#date').val(dred_to_edit['date']);
@@ -46,17 +55,21 @@ var Dataman = function() {
             }
         });
         if (dred_reasons > 1) {
-            while (x < (dred_reasons)) {
+            while (x < dred_reasons) {
                 formman.addDredReason();
                 x++;
             }
-            while (z < (dred_reasons)) {
+            while (z < dred_reasons) {
                 reason_text = dred_to_edit['reasons'][z];
                 $('.dred_reason input').eq(z).val(reason_text);
                 z++;
             }
             formman.dredReasonsToggle('toggle_yes');
-        }
+        } 
+        //if ($('.dred_reasons').length == 0) {
+            //If no dreds exist, need to ensure at least one dred reason line gets added
+        //   formman.addDredReason();
+        //}
         
         $('.dred_reason').last().find('button').data('action','add_reason');
         $('.dred_reason').last().find('button').html('+');
@@ -66,14 +79,12 @@ var Dataman = function() {
         ar_dreds[pos]['id'] = data['id'];
         ar_dreds[pos]['name'] = data['name'];
         ar_dreds[pos]['date'] = data['date'];
+        ar_dreds[pos]['completed'] = false;
         ar_dreds[pos]['reasons'] = data['reasons'];
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
         this.pageRefresh();
         navman.displayScreen('list');
-    }
-    this.completeDred = function(id) {
-
     }
     this.pageRefresh = function() {
         var ar_dreds = this.getDreds();
@@ -85,8 +96,10 @@ var Dataman = function() {
             cur_dred = '',
             cur_dred_name = '',
             cur_dred_date = '',
-            dreds_container = $('#dred_list');
+            dreds_container = $('#dred_list'),
+            completed_dreds_container = $('#completed_list');
         dreds_container.html('');
+        completed_dreds_container.html('');
         if(total_dreds > 0) {
             while (x < total_dreds) {
                 cur_dred = ar_dreds[x];
@@ -98,7 +111,11 @@ var Dataman = function() {
                 } else {
                     dred_link += '</a></li>';
                 }
-                dreds_container.append(dred_link);
+                if (cur_dred['completed'] !== true) {
+                    dreds_container.append(dred_link);
+                } else {
+                    completed_dreds_container.append(dred_link);
+                }
                 x++;
             }
             $('.inter_list').on('click', function(e){
@@ -118,6 +135,9 @@ var Dataman = function() {
 
         //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
+
+        //hide dred complete button, only shows on already existing dreds
+        $('.dred_complete').removeClass('active');
 
         //reset dred err msgs
         $('#form_err_msg').html('');
