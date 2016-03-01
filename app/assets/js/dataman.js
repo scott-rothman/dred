@@ -21,6 +21,19 @@ var Dataman = function() {
         //console.log('dreds so far: '+ num_of_dreds);
         return num_of_active_dreds;
     }
+    this.checkCompletedDredCount = function() {
+        var ar_dreds = this.getDreds();
+        var num_of_dreds = ar_dreds.length;
+        var x = 0, num_of_active_dreds = 0;
+        while (x < num_of_dreds) {
+            if (ar_dreds[x]['completed'] === true) {
+                num_of_active_dreds++;
+            }
+            x++;
+        }
+        //console.log('dreds so far: '+ num_of_dreds);
+        return num_of_active_dreds;   
+    }
     this.addDred = function(data) {
         var ar_dreds = this.getDreds();
         var str_dreds = "";
