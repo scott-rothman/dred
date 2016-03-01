@@ -60,8 +60,6 @@ var Dataman = function() {
         
         $('.dred_reason').last().find('button').data('action','add_reason');
         $('.dred_reason').last().find('button').html('+');
-        //TO FIX ABOVE: Create separate loops for creating the new form inputs, then a second loop to go through each of them, match up the correct values, change the needed buttons, etc
-        //console.log(dred_to_edit);
     }
     this.saveDred = function(pos,data) {
         var ar_dreds = this.getDreds();
@@ -89,20 +87,30 @@ var Dataman = function() {
             cur_dred_date = '',
             dreds_container = $('#dred_list');
         dreds_container.html('');
-        while (x < total_dreds) {
-            cur_dred = ar_dreds[x];
-            cur_dred_name = cur_dred["name"];
-            cur_dred_date = cur_dred["date"];
-            dred_link = '<li><a href="#" class="inter_list" data-id="'+x+'">'+cur_dred_name+' : '+cur_dred_date+'</a></li>';
-            dreds_container.append(dred_link);
-            x++;
+        if(total_dreds > 0) {
+            while (x < total_dreds) {
+                cur_dred = ar_dreds[x];
+                cur_dred_name = cur_dred["name"];
+                cur_dred_date = cur_dred["date"];
+                dred_link = '<li><a href="#" class="inter_list" data-id="'+x+'" data-date="'+ cur_dred_date +'">' + cur_dred_name;
+                if (cur_dred_date.length > 0) {
+                    dred_link += ' : ' + cur_dred_date + '</a></li>';
+                } else {
+                    dred_link += '</a></li>';
+                }
+                dreds_container.append(dred_link);
+                x++;
+            }
+            $('.inter_list').on('click', function(e){
+                var id_to_edit = $(this).data('id');
+                console.log('clicked:'+id_to_edit);
+                proxy_dataman.editDred(id_to_edit);
+                //This call ^^^
+            });
+            $('#empty_list').removeClass('active');
+        } else {
+            $('#empty_list').addClass('active');
         }
-        $('.inter_list').on('click', function(e){
-            var id_to_edit = $(this).data('id');
-            console.log('clicked:'+id_to_edit);
-            proxy_dataman.editDred(id_to_edit);
-            //This call ^^^
-        });
         $('#dred_add')[0].reset();
 
         //set number of dreds on home screen
@@ -110,6 +118,9 @@ var Dataman = function() {
 
         //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
+
+        //reset dred err msgs
+        $('#form_err_msg').html('');
 
         //set id for next dred
         $('#id').attr('value',total_dreds);

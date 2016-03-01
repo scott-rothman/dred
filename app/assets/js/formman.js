@@ -50,33 +50,39 @@ var Formman = function(){
         }
         dred_data['id'] = dred_id;
         dred_data['name'] = $('#name').val();
-        dred_data['date'] = $('#date').val();
-        dred_data['reasons'] = {};
-        $('.dred_reason').each(function(){
-            looping_reason = $(this).find('input[type="text"]').val();
-            dred_data['reasons'][dred_reason_count] = looping_reason;
-            dred_reason_count++;
-        });
-        dreds = dataman.getDreds();
-        console.log(dred_data);
-        console.log(dreds);
-        dred_count = dataman.checkDredCount();
-        counter = 0;
-        if (dreds.length > 0) {
-            $.each(dreds, function(index, value) {
-                if (index == dred_id ) {
-                    cur_dred = value;
-                    dataman.saveDred(counter, dred_data);
-                    was_edited = 1;
-                }
-                counter++;
+        if (dred_data['name'].length > 0) {
+            dred_data['date'] = $('#date').val();
+            dred_data['reasons'] = {};
+            $('.dred_reason').each(function(){
+                looping_reason = $(this).find('input[type="text"]').val();
+                dred_data['reasons'][dred_reason_count] = looping_reason;
+                dred_reason_count++;
             });
+            dreds = dataman.getDreds();
+            console.log(dred_data);
+            console.log(dreds);
+            dred_count = dataman.checkDredCount();
+            counter = 0;
+            if (dreds.length > 0) {
+                $.each(dreds, function(index, value) {
+                    if (index == dred_id ) {
+                        cur_dred = value;
+                        dataman.saveDred(counter, dred_data);
+                        was_edited = 1;
+                    }
+                    counter++;
+                });
+            }
+            if (was_edited != 1) {
+                dataman.addDred(dred_data);    
+            }
+            dataman.pageRefresh();
+            navman.displayScreen('list');
+        } else {
+            // if no name was entered, don't submit
+            $('#form_err_msg').html('Please enter a name');
         }
-        if (was_edited != 1) {
-            dataman.addDred(dred_data);    
-        }
-        dataman.pageRefresh();
-        navman.displayScreen('list');
+        
     }
     this.fireAction = function(button) {
         var action = button.data('action');
