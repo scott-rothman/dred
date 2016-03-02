@@ -60,18 +60,13 @@ form section {
     height: 15vw;
     text-align: center;
     border: solid 1px #FFFFFF;
-    @include display-box;
-    @include box-flex('1');
-    @include box-orient('horizontal');
-    @include box-align('center');
-    @include box-pack('center');
 }
 .vertical_center {
-    @include display-box;
-    @include box-flex('1');
-    @include box-orient('horizontal');
-    @include box-align('center');
-    @include box-pack('center');
+    display: flex;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
 }
 .sub_scaff {
     display: flex;

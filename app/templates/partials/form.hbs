@@ -1,4 +1,11 @@
-<form action="">
+<form id="dred_add" action="">
+    <section>
+        <div class="scaff two_col">
+            <button class="inter_nav form_back" data-target="list">back to dreds</button>
+        </div>
+        <div class="scaff two_col">
+        </div>
+    </section>
     <section>
         <div class="scaff one_col">
             <label for="name">name:</label>
@@ -7,8 +14,8 @@
     </section>
     <section>
         <div class="scaff one_col">
-            <label for="due">date / due date:</label>
-            <input type="date" name="name" id="name" placeholder="mm/dd/yyyy">
+            <label for="due">date / due date (optional):</label>
+            <input type="date" name="date" id="date" placeholder="mm/dd/yyyy">
         </div>
     </section>
     <section>
@@ -18,11 +25,11 @@
         <div class="scaff two_col offsetted_one">
             <div class="radio_wrapper">
                 <label for="specific">yes</label>
-                <input class="inter_form" data-action="toggle_yes" type="radio" name="specific" value="y">
+                <input class="inter_form" data-action="toggle_yes" type="radio" name="specific" id="radio_yes" value="y">
             </div>
             <div class="radio_wrapper">
                 <label for="specific">no</label>
-                <input class="inter_form" data-action="toggle_no" type="radio" name="specific" value="n" checked="checked">
+                <input class="inter_form" data-action="toggle_no" type="radio" name="specific" id="radio_no" value="n" checked="checked">
             </div>
             <input type="hidden" name="specific_reasons" id="specific_reasons" value="n">
         </div>
@@ -42,12 +49,23 @@
             </div>
         </section>
     </div>
-    <section>
+    <section class="form_buttons">
         <div class="scaff two_col">
-            <button class="inter_form" data-action="submit_dred">save event</button>
+            <input type="hidden" name="id" id="id" value="">
+            <button class="inter_form" data-action="submit_dred">save dred</button>
         </div>
         <div class="scaff two_col">
-            <button class="inter_form">delete event</button>
+            <button class="inter_form">delete dred</button>
+        </div>
+    </section>
+    <section>
+        <div class="scaff one_col">
+            <p class="alert" id="form_err_msg"></p>
+        </div>
+    </section>
+    <section class="complete_button">
+        <div class="scaff one_col">
+            <button class="inter_form dred_complete"  data-action="complete_dred">complete</button>
         </div>
     </section>
 </form>
