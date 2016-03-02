@@ -1,5 +1,12 @@
 <form id="dred_add" action="">
     <section>
+        <div class="scaff two_col">
+            <button class="inter_nav form_back" data-target="list">back to dreds</button>
+        </div>
+        <div class="scaff two_col">
+        </div>
+    </section>
+    <section>
         <div class="scaff one_col">
             <label for="name">name:</label>
             <input type="text" name="name" id="name" placeholder="what are you dreding?">
@@ -42,7 +49,7 @@
             </div>
         </section>
     </div>
-    <section>
+    <section class="form_buttons">
         <div class="scaff two_col">
             <input type="hidden" name="id" id="id" value="">
             <button class="inter_form" data-action="submit_dred">save dred</button>
@@ -56,7 +63,7 @@
             <p class="alert" id="form_err_msg"></p>
         </div>
     </section>
-    <section>
+    <section class="complete_button">
         <div class="scaff one_col">
             <button class="inter_form dred_complete"  data-action="complete_dred">complete</button>
         </div>

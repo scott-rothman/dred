@@ -1,9 +1,15 @@
 .phase_two {
     display: none !important;
 }
-.screen, .dred_reasons, .dred_complete, #empty_list{
+.screen, .dred_reasons,  #empty_list{
     display: none;
     &.active {
         display: block;
     }
+}
+.complete_button, .form_buttons {
+    display: none;
+    &.active {
+        display: flex;
+    }   
 }

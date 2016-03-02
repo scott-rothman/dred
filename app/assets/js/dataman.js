@@ -57,7 +57,6 @@ var Dataman = function() {
         var x = 0, z = 0;
         var reason_text = '';
         navman.displayScreen('form');
-        $('.dred_complete').addClass('active');
         $('.dred_complete').data('dred_id',dred_to_edit['id']);
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
@@ -83,7 +82,20 @@ var Dataman = function() {
             //If no dreds exist, need to ensure at least one dred reason line gets added
         //   formman.addDredReason();
         //}
-        
+
+        //Hide control buttons on dreds that have already been completed
+        //Adjust back button to send user to correct list
+        if(dred_to_edit['completed'] === true) {
+            $('.form_buttons').removeClass('active');
+            $('.complete_button').removeClass('active');
+            $('.form_back').data('target','completed_list');
+            $('.form_back').html('dreds overcome');
+        } else {
+            $('.form_buttons').addClass('active');
+            $('.complete_button').addClass('active');
+            $('.form_back').data('target','list');
+            $('.form_back').html('dreds active');
+        }
         $('.dred_reason').last().find('button').data('action','add_reason');
         $('.dred_reason').last().find('button').html('+');
     }
@@ -151,8 +163,12 @@ var Dataman = function() {
         //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
 
-        //hide dred complete button, only shows on already existing dreds
-        $('.dred_complete').removeClass('active');
+        //reshow any hidden buttons
+        $('.form_buttons').addClass('active');
+
+        //reset list nav to home
+        $('.form_back').data('target','home');
+        $('.form_back').html('back home');
 
         //reset dred err msgs
         $('#form_err_msg').html('');
