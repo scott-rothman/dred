@@ -88,11 +88,15 @@ var Dataman = function() {
         if(dred_to_edit['completed'] === true) {
             $('.form_buttons').removeClass('active');
             $('.complete_button').removeClass('active');
+            $('.reasons_header').removeClass('active');
+            $('#screen_form input').attr('readonly','readonly');
             $('.form_back').data('target','completed_list');
             $('.form_back').html('dreds overcome');
         } else {
             $('.form_buttons').addClass('active');
             $('.complete_button').addClass('active');
+            $('.reasons_header').addClass('active');
+            $('#screen_form input').removeAttr('readonly');
             $('.form_back').data('target','list');
             $('.form_back').html('dreds active');
         }
@@ -170,7 +174,7 @@ var Dataman = function() {
         //$('.form_back').data('target','home');
         //^^^ Not sure if this reset is needed.  It was breaking edit back button, no issues so far
         $('.form_back').html('back home');
-
+        $('#screen_form input').removeAttr('readonly');
         //reset dred err msgs
         $('#form_err_msg').html('');
 
