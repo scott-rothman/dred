@@ -1,0 +1,33 @@
+<form id="dred_finished" action="">
+    <section>
+        <div class="scaff one_col">
+            <p>how was <span id="dred_name"></span>?</p>
+            <p>did it go:</p>
+        </div>
+    </section>
+    <section class="reasons_header active">
+        <div class="scaff three_col">
+            <div class="radio_wrapper">
+                <label for="specific">better than expected</label>
+                <input class="inter_form" data-action="set_dred_rating" type="radio" name="specific" id="dred_rating_better" value="better">
+            </div>
+        </div>
+        <div class="scaff three_col">
+            <div class="radio_wrapper">
+                <label for="specific">about as expected</label>
+                <input class="inter_form" data-action="set_dred_rating" type="radio" name="specific" id="dred_rating_as" value="as" checked="checked">
+            </div>
+        </div>
+        <div class="scaff three_col">
+            <div class="radio_wrapper">
+                <label for="specific">worse than expected</label>
+                <input class="inter_form" data-action="set_dred_rating" type="radio" name="specific" id="dred_rating_worse" value="worse" checked="checked">
+            </div>
+        </div>
+    </section>
+    <section class="complete_button">
+        <div class="scaff one_col">
+            <button class="inter_form dred_rate"  data-action="submit_dred_rating" data-rating="">complete</button>
+        </div>
+    </section>
+</form>

@@ -34,6 +34,19 @@ var Dataman = function() {
         //console.log('dreds so far: '+ num_of_dreds);
         return num_of_active_dreds;   
     }
+    this.checkRatedCompletedDredCount = function(rating) {
+        var ar_dreds = this.getDreds();
+        var num_of_dreds = ar_dreds.length;
+        var x = 0, num_of_positive_dreds = 0;
+        while (x < num_of_dreds) {
+            if (ar_dreds[x]['completed'] === true && ar_dreds[x]['dred_review'] == rating) {
+                num_of_positive_dreds++;
+            }
+            x++;
+        }
+        //console.log('dreds so far: '+ num_of_dreds);
+        return num_of_positive_dreds;      
+    }
     this.addDred = function(data) {
         var ar_dreds = this.getDreds();
         var str_dreds = "";
@@ -58,6 +71,7 @@ var Dataman = function() {
         var reason_text = '';
         navman.displayScreen('form');
         $('.dred_complete').data('dred_id',dred_to_edit['id']);
+        $('.dred_rate').data('dred_id',dred_to_edit['id']);
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
         $('#date').val(dred_to_edit['date']);
@@ -88,11 +102,15 @@ var Dataman = function() {
         if(dred_to_edit['completed'] === true) {
             $('.form_buttons').removeClass('active');
             $('.complete_button').removeClass('active');
+            $('.reasons_header').removeClass('active');
+            $('#screen_form input').attr('readonly','readonly');
             $('.form_back').data('target','completed_list');
             $('.form_back').html('dreds overcome');
         } else {
             $('.form_buttons').addClass('active');
             $('.complete_button').addClass('active');
+            $('.reasons_header').addClass('active');
+            $('#screen_form input').removeAttr('readonly');
             $('.form_back').data('target','list');
             $('.form_back').html('dreds active');
         }
@@ -111,6 +129,38 @@ var Dataman = function() {
         this.pageRefresh();
         navman.displayScreen('list');
     }
+    this.calculateDatas = function() {
+        var ar_dreds = this.getDreds();
+        var total_dreds, 
+            total_active_dreds, 
+            total_completed_dreds, 
+            percentage_complete, 
+            percentage_complete_string, 
+            percentage_nnd, 
+            percentage_nnd_string;
+
+        total_active_dreds = this.checkDredCount();
+        total_completed_dreds = this.checkCompletedDredCount();
+        total_dreds = total_active_dreds + total_completed_dreds;
+        total_positive_dreds = this.checkRatedCompletedDredCount('better');
+        if (total_dreds === 0) {
+            percentage_complete_string = "100%";
+        } else {
+            percentage_complete = 100*(total_completed_dreds/(total_dreds));
+            percentage_complete_string = Math.floor(percentage_complete) + "%";
+        }
+
+        if (total_completed_dreds === 0) {
+            percentage_nnd_string = "100%";    
+        } else {
+            percentage_nnd = 100*(total_positive_dreds/(total_completed_dreds));
+            percentage_nnd_string = Math.floor(percentage_nnd) + "%";
+        }
+        
+        $('#completion_rate').html(percentage_complete_string);
+        $('#nnd_rate').html(percentage_nnd_string);
+        $('#dred_num').html(total_active_dreds);
+    }
     this.pageRefresh = function() {
         var ar_dreds = this.getDreds();
         //Not sure if there is a better way to maintain scope of the fuction for later call
@@ -124,6 +174,7 @@ var Dataman = function() {
             dreds_container = $('#dred_list'),
             completed_dreds_container = $('#completed_list')
             total_active_dreds = 0;
+            total_completed_dreds = 0;
         dreds_container.html('');
         completed_dreds_container.html('');
         if(total_dreds > 0) {
@@ -133,13 +184,16 @@ var Dataman = function() {
                 cur_dred_date = cur_dred["date"];
                 dred_link = '<li><a href="#" class="inter_list" data-id="'+x+'" data-date="'+ cur_dred_date +'">' + cur_dred_name;
                 if (cur_dred_date.length > 0) {
-                    dred_link += ' : ' + cur_dred_date + '</a></li>';
-                } else {
-                    dred_link += '</a></li>';
+                    dred_link += ' : ' + cur_dred_date;
                 }
                 if (cur_dred['completed'] !== true) {
+                    dred_link += '</a></li>';
                     dreds_container.append(dred_link);
+                    total_completed_dreds++;
                 } else {
+                    cur_dred_rating = cur_dred["dred_review"];
+                    console.log(cur_dred);
+                    dred_link += 'it went: ' + cur_dred_rating + '</a></li>';
                     completed_dreds_container.append(dred_link);
                 }
                 x++;
@@ -150,26 +204,47 @@ var Dataman = function() {
                 proxy_dataman.editDred(id_to_edit);
                 //This call ^^^
             });
-            $('#empty_list').removeClass('active');
+            
         } else {
             $('#empty_list').addClass('active');
         }
+
+
+        total_active_dreds = this.checkDredCount();
+        total_completed_dreds = this.checkCompletedDredCount();
+
+        //Hide and show empty list messages
+        if (total_completed_dreds > 0) {
+            $('#empty_completed_list').removeClass('active');
+        } else {
+            $('#empty_completed_list').addClass('active');
+        }
+        
+        if (total_active_dreds > 0) {
+            $('#empty_list').removeClass('active');            
+        } else {
+            $('#empty_list').addClass('active');
+        }
+
         $('#dred_add')[0].reset();
 
-        //set number of dreds on home screen
-        total_active_dreds = this.checkDredCount();
-        $('#dred_num').html(total_active_dreds);
-
+        //set data values on the come screen
+        this.calculateDatas();
+        
         //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
 
         //reshow any hidden buttons
         $('.form_buttons').addClass('active');
 
-        //reset list nav to home
-        $('.form_back').data('target','home');
-        $('.form_back').html('back home');
+        //reshow dred reasons toggle
+        $('.reasons_header').addClass('active');
 
+        //reset list nav to home
+        //$('.form_back').data('target','home');
+        //^^^ Not sure if this reset is needed.  It was breaking edit back button, no issues so far
+        $('.form_back').html('back home');
+        $('#screen_form input').removeAttr('readonly');
         //reset dred err msgs
         $('#form_err_msg').html('');
 

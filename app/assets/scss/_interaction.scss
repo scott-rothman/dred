@@ -1,13 +1,13 @@
 .phase_two {
     display: none !important;
 }
-.screen, .dred_reasons,  #empty_list{
+.screen, .dred_reasons,  #empty_list, #empty_completed_list{
     display: none;
     &.active {
         display: block;
     }
 }
-.complete_button, .form_buttons {
+.complete_button, .form_buttons, .reasons_header {
     display: none;
     &.active {
         display: flex;
