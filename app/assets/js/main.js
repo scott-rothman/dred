@@ -6,8 +6,7 @@ function init() {
     window.navman = new Navman;
     window.dataman = new Dataman;
     window.formman = new Formman;
-    var total_dreds = dataman.checkDredCount();
-    $('#dred_num').html(total_dreds);
+    dataman.calculateDatas();
     $('.inter_nav').on('click', function(e){
         e.preventDefault();
         dataman.pageRefresh();

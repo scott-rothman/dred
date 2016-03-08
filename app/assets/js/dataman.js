@@ -115,6 +115,24 @@ var Dataman = function() {
         this.pageRefresh();
         navman.displayScreen('list');
     }
+    this.calculateDatas = function() {
+        var ar_dreds = this.getDreds();
+        var total_dreds, total_active_dreds, total_completed_dreds, percentage_complete;
+
+        total_active_dreds = this.checkDredCount();
+        total_completed_dreds = this.checkCompletedDredCount();
+        total_dreds = total_active_dreds + total_completed_dreds;
+
+        if (total_dreds === 0) {
+            percentage_complete_string = "100%";    
+        } else {
+            percentage_complete = 100*(total_completed_dreds/(total_dreds));
+            percentage_complete_string = Math.floor(percentage_complete) + "%";    
+        }
+        
+        $('#completion_rate').html(percentage_complete_string);
+        $('#dred_num').html(total_active_dreds);
+    }
     this.pageRefresh = function() {
         var ar_dreds = this.getDreds();
         //Not sure if there is a better way to maintain scope of the fuction for later call
@@ -180,9 +198,9 @@ var Dataman = function() {
 
         $('#dred_add')[0].reset();
 
-        //set number of dreds on home screen
-        $('#dred_num').html(total_active_dreds);
-
+        //set data values on the come screen
+        this.calculateDatas();
+        
         //reset dreds reasons
         formman.dredReasonsToggle('toggle_no');
 
