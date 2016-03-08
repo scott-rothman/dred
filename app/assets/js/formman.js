@@ -107,6 +107,7 @@ var Formman = function(){
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
         dataman.pageRefresh();
+        $('.complete_button').addClass('active');
         navman.displayScreen('finished');
     }
     this.setDredRating = function(rating) {

@@ -263,7 +263,7 @@ var Dataman = function() {
         $('.dred_reason').not('#dred_reason_template').remove();
         $('#dred_reason_template').find('button').data('action','add_reason');
         $('#dred_reason_template').find('button').html('+');
-
+        $('.complete_button').removeClass('active');
         //reshow add/remove dred reasons after displaying completed dreds
         $('.dred_reason button').addClass('active')
 
