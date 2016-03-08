@@ -15,6 +15,8 @@ function init() {
         var next_screen = '';
         
         next_screen = navman.getScreenTarget(active_button);
+        console.log($(this));
+        console.log(next_screen);
         navman.displayScreen(next_screen);
     });
     $('.inter_form').on('click', function(e){

@@ -167,7 +167,8 @@ var Dataman = function() {
         $('.form_buttons').addClass('active');
 
         //reset list nav to home
-        $('.form_back').data('target','home');
+        //$('.form_back').data('target','home');
+        //^^^ Not sure if this reset is needed.  It was breaking edit back button, no issues so far
         $('.form_back').html('back home');
 
         //reset dred err msgs
