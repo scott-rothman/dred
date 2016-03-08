@@ -33,6 +33,10 @@ var Formman = function(){
     };
     this.removeDredReason = function(button) {
         button.closest('section').remove();
+        template_still_exists = $('#dred_reason_template').length;
+        if(template_still_exists != 1) {
+            $('.dred_reason').first().attr('id','dred_reason_template');
+        }
     }
     this.submitDred = function() {
         var dred_data = {},
