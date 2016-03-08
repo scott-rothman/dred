@@ -120,7 +120,7 @@ var Formman = function(){
             console.log(ar_dreds[x]['id']);
             console.log(ar_dreds[x])
             if (ar_dreds[x]['id'] == id) {
-                ar_dreds[x]['dred_review'] = rating;
+                ar_dreds[x]['dred_rating'] = rating;
             }
             x++;
         }

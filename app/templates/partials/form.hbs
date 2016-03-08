@@ -12,10 +12,10 @@
             <input type="text" name="name" id="name" placeholder="what are you dreding?">
         </div>
     </section>
-    <section>
+    <section class="form_date_wrapper">
         <div class="scaff one_col">
             <label for="due">date / due date (optional):</label>
-            <input type="date" name="date" id="date" placeholder="mm/dd/yyyy">
+            <input class="active" type="date" name="date" id="date" placeholder="mm/dd/yyyy">
         </div>
     </section>
     <section class="reasons_header active">
@@ -37,7 +37,7 @@
     <div class="dred_reasons">
         <section>
             <div class="scaff one_col">
-                <label for="name">feel free to list as many reasons why:</label>
+                <label class="reasons_label" for="name">feel free to list as many reasons why:</label>
             </div>
         </section>
         <section class="dred_reason" id="dred_reason_template" data-position="1">
@@ -45,10 +45,15 @@
                 <input type="text" name="dr1" id="dr1">
             </div>
             <div class="scaff two_col offsetted_two">
-                <button class="inter_form" data-action="add_reason">+</button>
+                <button class="inter_form active" data-action="add_reason">+</button>
             </div>
         </section>
     </div>
+    <section class="dred_ratings">
+        <div class="scaff one_col">
+            <p>You felt this went <span id="form_dred_rating"></span></p>
+        </div>
+    </section>
     <section class="form_buttons">
         <div class="scaff two_col">
             <input type="hidden" name="id" id="id" value="">

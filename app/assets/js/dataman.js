@@ -39,7 +39,7 @@ var Dataman = function() {
         var num_of_dreds = ar_dreds.length;
         var x = 0, num_of_positive_dreds = 0;
         while (x < num_of_dreds) {
-            if (ar_dreds[x]['completed'] === true && ar_dreds[x]['dred_review'] == rating) {
+            if (ar_dreds[x]['completed'] === true && ar_dreds[x]['dred_rating'] == rating) {
                 num_of_positive_dreds++;
             }
             x++;
@@ -69,6 +69,7 @@ var Dataman = function() {
         var dred_reasons = Object.keys(dred_to_edit['reasons']).length;
         var x = 0, z = 0;
         var reason_text = '';
+        var rating_text = '';
         navman.displayScreen('form');
         $('.dred_complete').data('dred_id',dred_to_edit['id']);
         $('.dred_rate').data('dred_id',dred_to_edit['id']);
@@ -103,14 +104,29 @@ var Dataman = function() {
             $('.form_buttons').removeClass('active');
             $('.complete_button').removeClass('active');
             $('.reasons_header').removeClass('active');
+            if (dred_reasons > 0) {
+                $('.dred_reasons').addClass('active');
+                $('.reasons_label').html('Your reasons for dred');
+            }
+            console.log(dred_to_edit['date']);
+            if (dred_to_edit['date'] === 'mm/dd/yyyy' || dred_to_edit['date'] === '' || dred_to_edit['date'] === undefined) {
+                $('.form_date_wrapper').removeClass('active')
+            }
+            rating_text = dred_to_edit['dred_rating'];
+            $('#form_dred_rating').html(rating_text);
             $('#screen_form input').attr('readonly','readonly');
+            $('.dred_reason button').removeClass('active')
+            $('.dred_ratings').addClass('active');
             $('.form_back').data('target','completed_list');
             $('.form_back').html('dreds overcome');
         } else {
             $('.form_buttons').addClass('active');
             $('.complete_button').addClass('active');
             $('.reasons_header').addClass('active');
+            $('.reasons_label').html('are there any specific reasons you\'re dreding this');
             $('#screen_form input').removeAttr('readonly');
+            $('.dred_reason button').addClass('active')
+            $('.dred_ratings').removeClass('active');
             $('.form_back').data('target','list');
             $('.form_back').html('dreds active');
         }
@@ -191,7 +207,7 @@ var Dataman = function() {
                     dreds_container.append(dred_link);
                     total_completed_dreds++;
                 } else {
-                    cur_dred_rating = cur_dred["dred_review"];
+                    cur_dred_rating = cur_dred["dred_rating"];
                     console.log(cur_dred);
                     dred_link += 'it went: ' + cur_dred_rating + '</a></li>';
                     completed_dreds_container.append(dred_link);
@@ -237,8 +253,21 @@ var Dataman = function() {
         //reshow any hidden buttons
         $('.form_buttons').addClass('active');
 
+        //reshow date incase hidden for empty field
+        $('.form_date_wrapper').addClass('active')
+
         //reshow dred reasons toggle
         $('.reasons_header').addClass('active');
+
+        //hide rating message from completed dreds
+        $('.dred_ratings').removeClass('active');
+
+        $('.dred_reason').not('#dred_reason_template').remove();
+        $('#dred_reason_template').find('button').data('action','add_reason');
+        $('#dred_reason_template').find('button').html('+');
+
+        //reshow add/remove dred reasons after displaying completed dreds
+        $('.dred_reason button').addClass('active')
 
         //reset list nav to home
         //$('.form_back').data('target','home');
