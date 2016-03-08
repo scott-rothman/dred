@@ -58,6 +58,7 @@ var Dataman = function() {
         var reason_text = '';
         navman.displayScreen('form');
         $('.dred_complete').data('dred_id',dred_to_edit['id']);
+        $('.dred_rate').data('dred_id',dred_to_edit['id']);
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
         $('#date').val(dred_to_edit['date']);
@@ -156,14 +157,16 @@ var Dataman = function() {
                 cur_dred_date = cur_dred["date"];
                 dred_link = '<li><a href="#" class="inter_list" data-id="'+x+'" data-date="'+ cur_dred_date +'">' + cur_dred_name;
                 if (cur_dred_date.length > 0) {
-                    dred_link += ' : ' + cur_dred_date + '</a></li>';
-                } else {
-                    dred_link += '</a></li>';
+                    dred_link += ' : ' + cur_dred_date;
                 }
                 if (cur_dred['completed'] !== true) {
+                    dred_link += '</a></li>';
                     dreds_container.append(dred_link);
                     total_completed_dreds++;
                 } else {
+                    cur_dred_rating = cur_dred["dred_review"];
+                    console.log(cur_dred);
+                    dred_link += 'it went: ' + cur_dred_rating + '</a></li>';
                     completed_dreds_container.append(dred_link);
                 }
                 x++;
