@@ -128,6 +128,7 @@ var Dataman = function() {
             dreds_container = $('#dred_list'),
             completed_dreds_container = $('#completed_list')
             total_active_dreds = 0;
+            total_completed_dreds = 0;
         dreds_container.html('');
         completed_dreds_container.html('');
         if(total_dreds > 0) {
@@ -143,6 +144,7 @@ var Dataman = function() {
                 }
                 if (cur_dred['completed'] !== true) {
                     dreds_container.append(dred_link);
+                    total_completed_dreds++;
                 } else {
                     completed_dreds_container.append(dred_link);
                 }
@@ -154,14 +156,31 @@ var Dataman = function() {
                 proxy_dataman.editDred(id_to_edit);
                 //This call ^^^
             });
-            $('#empty_list').removeClass('active');
+            
         } else {
             $('#empty_list').addClass('active');
         }
+
+
+        total_active_dreds = this.checkDredCount();
+        total_completed_dreds = this.checkCompletedDredCount();
+
+        //Hide and show empty list messages
+        if (total_completed_dreds > 0) {
+            $('#empty_completed_list').removeClass('active');
+        } else {
+            $('#empty_completed_list').addClass('active');
+        }
+        
+        if (total_active_dreds > 0) {
+            $('#empty_list').removeClass('active');            
+        } else {
+            $('#empty_list').addClass('active');
+        }
+
         $('#dred_add')[0].reset();
 
         //set number of dreds on home screen
-        total_active_dreds = this.checkDredCount();
         $('#dred_num').html(total_active_dreds);
 
         //reset dreds reasons
@@ -169,6 +188,9 @@ var Dataman = function() {
 
         //reshow any hidden buttons
         $('.form_buttons').addClass('active');
+
+        //reshow dred reasons toggle
+        $('.reasons_header').addClass('active');
 
         //reset list nav to home
         //$('.form_back').data('target','home');

@@ -1,7 +1,7 @@
 .phase_two {
     display: none !important;
 }
-.screen, .dred_reasons,  #empty_list{
+.screen, .dred_reasons,  #empty_list, #empty_completed_list{
     display: none;
     &.active {
         display: block;

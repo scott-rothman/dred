@@ -99,6 +99,7 @@ var Formman = function(){
             }
             x++;
         }
+        $('#empty_completed_list').removeClass('active');
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
         dataman.pageRefresh();
