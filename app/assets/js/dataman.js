@@ -55,14 +55,7 @@ var Dataman = function() {
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
     }
-    this.removeDred = function(id) {
-        var ar_dreds = this.getDreds();
-        var index = ar_dreds.indexOf(id);
-        if(index > -1) {
-            ar_dreds.splice(index, 1);
-        }
-        localStorage['dreds'] = ar_dreds;
-    }
+
     this.editDred = function(id) {
         var ar_dreds = this.getDreds();
         var dred_to_edit = ar_dreds[id];
@@ -72,6 +65,7 @@ var Dataman = function() {
         var rating_text = '';
         navman.displayScreen('form');
         $('.dred_complete').data('dred_id',dred_to_edit['id']);
+        $('.dred_remove').data('dred_id',dred_to_edit['id']);
         $('.dred_rate').data('dred_id',dred_to_edit['id']);
         $('#id').val(dred_to_edit['id']);
         $('#name').val(dred_to_edit['name']);
@@ -115,6 +109,7 @@ var Dataman = function() {
             rating_text = dred_to_edit['dred_rating'];
             $('#form_dred_rating').html(rating_text);
             $('#screen_form input').attr('readonly','readonly');
+            $('.remove_dred_wrapper').removeClass('active');
             $('.dred_reason button').removeClass('active')
             $('.dred_ratings').addClass('active');
             $('.form_back').data('target','completed_list');
@@ -123,6 +118,7 @@ var Dataman = function() {
             $('.form_buttons').addClass('active');
             $('.complete_button').addClass('active');
             $('.reasons_header').addClass('active');
+            $('.remove_dred_wrapper').addClass('active');
             $('.reasons_label').html('are there any specific reasons you\'re dreding this');
             $('#screen_form input').removeAttr('readonly');
             $('.dred_reason button').addClass('active')
@@ -261,6 +257,8 @@ var Dataman = function() {
 
         //hide rating message from completed dreds
         $('.dred_ratings').removeClass('active');
+
+        $('.remove_dred_wrapper').removeClass('active');
 
         $('.dred_reason').not('#dred_reason_template').remove();
         $('#dred_reason_template').find('button').data('action','add_reason');

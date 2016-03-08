@@ -7,7 +7,7 @@
         display: block;
     }
 }
-.complete_button, .form_buttons, .reasons_header, .dred_ratings {
+.complete_button, .form_buttons, .reasons_header, .dred_ratings, .remove_dred_wrapper {
     display: none;
     &.active {
         display: flex;
