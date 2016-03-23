@@ -194,7 +194,8 @@ var Dataman = function() {
                 cur_dred = ar_dreds[x];
                 cur_dred_name = cur_dred["name"];
                 cur_dred_date = cur_dred["date"];
-                dred_link = '<li><a href="#" class="inter_list" data-id="'+x+'" data-date="'+ cur_dred_date +'">' + cur_dred_name;
+                var unix_cur_dred_date  = new Date(cur_dred_date).getTime();
+                dred_link = '<li data-date="'+ unix_cur_dred_date +'"><a href="#" class="inter_list" data-id="'+x+'">' + cur_dred_name;
                 if (cur_dred_date.length > 0) {
                     dred_link += ' : ' + cur_dred_date;
                 }
@@ -210,6 +211,14 @@ var Dataman = function() {
                 }
                 x++;
             }
+            dreds_container.find('li').sort(function(a, b) {
+                return +a.dataset.date - +b.dataset.date;
+            }).appendTo(dreds_container);
+
+            completed_dreds_container.find('li').sort(function(a, b) {
+                return +a.dataset.date - +b.dataset.date;
+            }).appendTo(completed_dreds_container);
+
             $('.inter_list').on('click', function(e){
                 var id_to_edit = $(this).data('id');
                 console.log('clicked:'+id_to_edit);
@@ -273,6 +282,7 @@ var Dataman = function() {
         $('.form_back').html('back home');
         $('#screen_form input').removeAttr('readonly');
         //reset dred err msgs
+        $('.form_err_holder').removeClass('active')
         $('#form_err_msg').html('');
 
         //set id for next dred

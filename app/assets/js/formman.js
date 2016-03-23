@@ -89,6 +89,7 @@ var Formman = function(){
             navman.displayScreen('list');
         } else {
             // if no name was entered, don't submit
+            $('.form_err_holder').addClass('active')
             $('#form_err_msg').html('Please enter a name');
         }
         

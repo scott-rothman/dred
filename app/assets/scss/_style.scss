@@ -60,7 +60,10 @@ label {
         font-size: 5vw;
     }
 }
-
+.form_buttons {
+    border-top: solid #FFFFFF 4px;
+    padding-top: 3vw;
+}
 .label_small {
     font-size: 4vw;
 }
@@ -70,8 +73,26 @@ ol {
     padding-left: 0;
     list-style-position: inside;
     & li {
+        height: 13vw;
+        width: 100%;
         margin-left: 0;
         padding-left: 0;
         color: #FFFFFF;
+        border-top: solid #FFFFFF 1px;
+        border-bottom: solid #FFFFFF 1px;
+        box-sizing: border-box;
+        & a {
+            padding-top: 4vw;
+            display: inline-block;
+            height: 100%;
+            width: 80%;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
     }
+}
+
+#screen_help ol li{
+    height: auto !important;
+    padding: 5vw 0 5vw 0;
 }
