@@ -194,10 +194,12 @@ var Dataman = function() {
                 cur_dred = ar_dreds[x];
                 cur_dred_name = cur_dred["name"];
                 cur_dred_date = cur_dred["date"];
-                var unix_cur_dred_date  = new Date(cur_dred_date).getTime();
+                cur_dred_date_obj = new Date(cur_dred_date);
+                var unix_cur_dred_date  = cur_dred_date_obj.getTime();
+                var display_date  = cur_dred_date_obj.getMonth() + '/' + cur_dred_date_obj.getDay() + '/' + cur_dred_date_obj.getFullYear();
                 dred_link = '<li data-date="'+ unix_cur_dred_date +'"><a href="#" class="inter_list" data-id="'+x+'">' + cur_dred_name;
-                if (cur_dred_date.length > 0) {
-                    dred_link += ' : ' + cur_dred_date;
+                if (cur_dred_date.length > 0 && display_date != 'NaN/NaN/NaN') {
+                    dred_link += ' : ' + display_date;
                 }
                 if (cur_dred['completed'] !== true) {
                     dred_link += '</a></li>';
