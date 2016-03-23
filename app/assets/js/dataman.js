@@ -163,7 +163,7 @@ var Dataman = function() {
         }
 
         if (total_completed_dreds === 0) {
-            percentage_nnd_string = "100%";    
+            percentage_nnd_string = "100%";
         } else {
             percentage_nnd = 100*(total_positive_dreds/(total_completed_dreds));
             percentage_nnd_string = Math.floor(percentage_nnd) + "%";

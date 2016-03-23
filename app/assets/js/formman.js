@@ -7,11 +7,13 @@ var Formman = function(){
         if (status == 'toggle_yes') {
             $('.dred_reasons').addClass('active');
             $('#specific_reasons').val('y');
-            $('#radio_yes').prop("checked", true);
+            $('#radio_yes').prop("checked", true).addClass('activated');
+            $('#radio_no').removeClass('activated');
         } else if (status == 'toggle_no') {
             $('.dred_reasons').removeClass('active');
             $('#specific_reasons').val('n');
-            $('#radio_no').prop("checked", true);
+            $('#radio_no').prop("checked", true).addClass('activated');
+            $('#radio_yes').removeClass('activated');
         }
     }
     this.addDredReason = function() {

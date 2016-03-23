@@ -19,17 +19,19 @@
         </div>
     </section>
     <section class="reasons_header active">
-        <div class="scaff two_col offset_left">
+        <div class="scaff two_col">
             <label for="name">are there any specific reasons you're dreding this?</label>
         </div>
-        <div class="scaff two_col offsetted_one">
+    </section>
+    <section class="reasons_header active">
+        <div class="scaff two_col">
             <div class="radio_wrapper">
-                <label for="specific">yes</label>
-                <input class="inter_form" data-action="toggle_yes" type="radio" name="specific" id="radio_yes" value="y">
+                <input class="inter_form" data-action="toggle_yes" type="button" name="specific" id="radio_yes" value="Yes">
             </div>
+        </div>
+        <div class="scaff two_col">
             <div class="radio_wrapper">
-                <label for="specific">no</label>
-                <input class="inter_form" data-action="toggle_no" type="radio" name="specific" id="radio_no" value="n" checked="checked">
+                <input class="inter_form" data-action="toggle_no" type="button" name="specific" id="radio_no" value="No" checked="checked">
             </div>
             <input type="hidden" name="specific_reasons" id="specific_reasons" value="n">
         </div>

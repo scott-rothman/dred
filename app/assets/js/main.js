@@ -16,6 +16,9 @@ function init() {
         next_screen = navman.getScreenTarget(active_button);
         console.log($(this));
         console.log(next_screen);
+        if (next_screen == 'form') {
+            $('.form_back').data('target','home');
+        }
         navman.displayScreen(next_screen);
     });
     $('.inter_form').on('click', function(e){
