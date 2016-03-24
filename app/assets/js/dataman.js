@@ -109,6 +109,11 @@ var Dataman = function() {
             rating_text = dred_to_edit['dred_rating'];
             $('#form_dred_rating').html(rating_text);
             $('#screen_form input').attr('readonly','readonly');
+            $('#screen_form input').each(function(){
+                if($(this).val() == '') {
+                    $(this).addClass('hidden');
+                }
+            })
             $('.remove_dred_wrapper').removeClass('active');
             $('.dred_reason button').removeClass('active')
             $('.dred_ratings').addClass('active');
@@ -154,7 +159,7 @@ var Dataman = function() {
         total_active_dreds = this.checkDredCount();
         total_completed_dreds = this.checkCompletedDredCount();
         total_dreds = total_active_dreds + total_completed_dreds;
-        total_positive_dreds = this.checkRatedCompletedDredCount('better');
+        total_positive_dreds = this.checkRatedCompletedDredCount('better than expected');
         if (total_dreds === 0) {
             percentage_complete_string = "100%";
         } else {
@@ -197,9 +202,9 @@ var Dataman = function() {
                 cur_dred_date_obj = new Date(cur_dred_date);
                 var unix_cur_dred_date  = cur_dred_date_obj.getTime();
                 var display_date  = cur_dred_date_obj.getMonth() + '/' + cur_dred_date_obj.getDay() + '/' + cur_dred_date_obj.getFullYear();
-                dred_link = '<li data-date="'+ unix_cur_dred_date +'"><a href="#" class="inter_list" data-id="'+x+'">' + cur_dred_name;
+                dred_link = '<li data-date="'+ unix_cur_dred_date +'"><a href="#" class="inter_list" data-id="'+x+'"><strong>' + cur_dred_name + '</strong>';
                 if (cur_dred_date.length > 0 && display_date != 'NaN/NaN/NaN') {
-                    dred_link += ' : ' + display_date;
+                    dred_link += ': ' + display_date;
                 }
                 if (cur_dred['completed'] !== true) {
                     dred_link += '</a></li>';
@@ -208,7 +213,7 @@ var Dataman = function() {
                 } else {
                     cur_dred_rating = cur_dred["dred_rating"];
                     console.log(cur_dred);
-                    dred_link += ' | reaction: ' + cur_dred_rating + '</a></li>';
+                    dred_link += '<br><strong>Reaction</strong>: ' + cur_dred_rating + '</a></li>';
                     completed_dreds_container.append(dred_link);
                 }
                 x++;
@@ -270,6 +275,8 @@ var Dataman = function() {
         $('.dred_ratings').removeClass('active');
 
         $('.remove_dred_wrapper').removeClass('active');
+
+        $('#screen_form input').removeClass('hidden');
 
         $('.dred_reason').not('#dred_reason_template').remove();
         $('#dred_reason_template').find('button').data('action','add_reason');

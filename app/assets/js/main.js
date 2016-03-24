@@ -31,7 +31,14 @@ function init() {
         //next_action = formman.getFormAction(active_button);
         formman.fireAction(active_button);
     });
-    $('.debug').on('click', function(e){
+    $('.delete_all').on('click', function(e){
+        $(this).addClass('hidden');
+        $('.really_delete_all').removeClass('hidden');
+    });
+    $('.really_delete_all').on('click', function(e){
+        $(this).addClass('hidden');
+        $('.delete_all').removeClass('hidden');
         localStorage.clear();
+        navman.displayScreen('home');
     });
 }
