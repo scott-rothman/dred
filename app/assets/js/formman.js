@@ -98,14 +98,17 @@ var Formman = function(){
         var ar_dreds = dataman.getDreds();
         var num_of_dreds = ar_dreds.length;
         var x = 0;
+        var dred_name;
         while (x < num_of_dreds) {
             console.log(ar_dreds[x]['id']);
             console.log(ar_dreds[x])
             if (ar_dreds[x]['id'] == id) {
+                dred_name = ar_dreds[x]['name'];
                 ar_dreds[x]['completed'] = true;
             }
             x++;
         }
+        $('#dred_name').html(dred_name);
         $('#empty_completed_list').removeClass('active');
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
@@ -115,6 +118,17 @@ var Formman = function(){
     }
     this.setDredRating = function(rating) {
         $('.dred_rate').data('rating',rating);
+        if (rating === 'better than expected') {
+            $('.dred_rating_button').removeClass('activated');
+            $('#dred_rating_better').addClass('activated');
+        } else if (rating === 'as expected') {
+            $('.dred_rating_button').removeClass('activated');
+            $('#dred_rating_as').addClass('activated');
+        } else {
+            $('.dred_rating_button').removeClass('activated');
+            $('#dred_rating_worse').addClass('activated');
+        }
+        console.log(rating);
     }
     this.submitDredRating = function(id,rating) {
         var ar_dreds = dataman.getDreds();

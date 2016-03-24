@@ -20,10 +20,12 @@ button  {
 input[type='button'].inter_form {
     width: 100%;
     height: 13vw;
-    padding: 2.2vw 0 2.2vw 0;
+    padding: 2.2vw 10px 2.2vw 10px;
     background: none;
     border: solid #FFFFFF 1px;
     color: #FFFFFF;
+    box-sizing: border-box;
+    white-space: normal;
     &.activated {
         background: $secondary;
         border: 0;
@@ -73,7 +75,6 @@ ol {
     padding-left: 0;
     list-style-position: inside;
     & li {
-        height: 13vw;
         width: 100%;
         margin-left: 0;
         padding-left: 0;
@@ -81,8 +82,9 @@ ol {
         border-top: solid #FFFFFF 1px;
         border-bottom: solid #FFFFFF 1px;
         box-sizing: border-box;
+        list-style-type: none;
         & a {
-            padding-top: 4vw;
+            margin: 4vw 0 4vw 0;
             display: inline-block;
             height: 100%;
             width: 80%;

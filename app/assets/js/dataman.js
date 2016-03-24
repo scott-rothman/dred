@@ -208,7 +208,7 @@ var Dataman = function() {
                 } else {
                     cur_dred_rating = cur_dred["dred_rating"];
                     console.log(cur_dred);
-                    dred_link += 'it went: ' + cur_dred_rating + '</a></li>';
+                    dred_link += ' | reaction: ' + cur_dred_rating + '</a></li>';
                     completed_dreds_container.append(dred_link);
                 }
                 x++;
