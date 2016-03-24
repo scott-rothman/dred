@@ -7,11 +7,13 @@ var Formman = function(){
         if (status == 'toggle_yes') {
             $('.dred_reasons').addClass('active');
             $('#specific_reasons').val('y');
-            $('#radio_yes').prop("checked", true);
+            $('#radio_yes').prop("checked", true).addClass('activated');
+            $('#radio_no').removeClass('activated');
         } else if (status == 'toggle_no') {
             $('.dred_reasons').removeClass('active');
             $('#specific_reasons').val('n');
-            $('#radio_no').prop("checked", true);
+            $('#radio_no').prop("checked", true).addClass('activated');
+            $('#radio_yes').removeClass('activated');
         }
     }
     this.addDredReason = function() {
@@ -87,6 +89,7 @@ var Formman = function(){
             navman.displayScreen('list');
         } else {
             // if no name was entered, don't submit
+            $('.form_err_holder').addClass('active')
             $('#form_err_msg').html('Please enter a name');
         }
         
@@ -95,22 +98,37 @@ var Formman = function(){
         var ar_dreds = dataman.getDreds();
         var num_of_dreds = ar_dreds.length;
         var x = 0;
+        var dred_name;
         while (x < num_of_dreds) {
             console.log(ar_dreds[x]['id']);
             console.log(ar_dreds[x])
             if (ar_dreds[x]['id'] == id) {
+                dred_name = ar_dreds[x]['name'];
                 ar_dreds[x]['completed'] = true;
             }
             x++;
         }
+        $('#dred_name').html(dred_name);
         $('#empty_completed_list').removeClass('active');
         str_dreds = JSON.stringify(ar_dreds);
         localStorage['dreds'] = str_dreds;
         dataman.pageRefresh();
+        $('.complete_button').addClass('active');
         navman.displayScreen('finished');
     }
     this.setDredRating = function(rating) {
         $('.dred_rate').data('rating',rating);
+        if (rating === 'better than expected') {
+            $('.dred_rating_button').removeClass('activated');
+            $('#dred_rating_better').addClass('activated');
+        } else if (rating === 'as expected') {
+            $('.dred_rating_button').removeClass('activated');
+            $('#dred_rating_as').addClass('activated');
+        } else {
+            $('.dred_rating_button').removeClass('activated');
+            $('#dred_rating_worse').addClass('activated');
+        }
+        console.log(rating);
     }
     this.submitDredRating = function(id,rating) {
         var ar_dreds = dataman.getDreds();
@@ -120,7 +138,7 @@ var Formman = function(){
             console.log(ar_dreds[x]['id']);
             console.log(ar_dreds[x])
             if (ar_dreds[x]['id'] == id) {
-                ar_dreds[x]['dred_review'] = rating;
+                ar_dreds[x]['dred_rating'] = rating;
             }
             x++;
         }
@@ -128,6 +146,27 @@ var Formman = function(){
         localStorage['dreds'] = str_dreds;
         dataman.pageRefresh();
         navman.displayScreen('completed_list');
+    }
+    this.removeDred = function(id) {
+        var ar_dreds = dataman.getDreds();
+        var num_of_dreds = ar_dreds.length;
+        var index = -1;
+        var x = 0;
+        while (x < num_of_dreds) {
+            console.log(ar_dreds[x]['id']);
+            console.log(ar_dreds[x])
+            if (ar_dreds[x]['id'] == id) {
+                index = x;
+            }
+            x++;
+        }
+        if(index > -1) {
+            ar_dreds.splice(index, 1);
+        }
+        str_dreds = JSON.stringify(ar_dreds);
+        localStorage['dreds'] = str_dreds;
+        dataman.pageRefresh();
+        navman.displayScreen('list');
     }
     this.fireAction = function(button) {
         var action = button.data('action');
@@ -139,6 +178,9 @@ var Formman = function(){
             this.dredReasonsToggle(action);
         } else if (action == 'submit_dred') {
             this.submitDred();
+        } else if (action == 'remove_dred') {
+            var id = button.data('dred_id');
+            this.removeDred(id);
         } else if (action == 'complete_dred') {
             var id = button.data('dred_id');
             this.completeDred(id);

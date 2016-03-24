@@ -1,15 +1,19 @@
 .phase_two {
     display: none !important;
 }
-.screen, .dred_reasons,  #empty_list, #empty_completed_list{
+.screen, .dred_reasons, .form_date_wrapper, #empty_list, #empty_completed_list, .dred_reason button {
     display: none;
     &.active {
         display: block;
     }
 }
-.complete_button, .form_buttons, .reasons_header {
+.complete_button, .form_buttons, .reasons_header, .dred_ratings, .remove_dred_wrapper, .form_err_holder {
     display: none;
     &.active {
         display: flex;
     }   
+}
+
+.hidden {
+    display: none;
 }
