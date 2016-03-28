@@ -1,0 +1,92 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'instal', 'lib32ncurses5-dev' ]
+2 info using npm@1.4.29
+3 info using node@v0.10.43
+4 verbose node symlink /usr/bin/node
+5 warn deprecated This version of npm lacks support for important features,
+6 warn deprecated such as scoped packages, offered by the primary npm
+7 warn deprecated registry. Consider upgrading to at least npm@2, if not the
+8 warn deprecated latest stable version. To upgrade to npm@2, run:
+9 warn deprecated npm -g install npm@latest-2
+10 warn deprecated To upgrade to the latest stable version, run:
+11 warn deprecated npm -g install npm@latest
+12 warn deprecated (Depending on how Node.js was installed on your system, you
+13 warn deprecated may need to prefix the preceding commands with `sudo`, or if
+14 warn deprecated on Windows, run them from an Administrator prompt.)
+15 warn deprecated If you're running the version of npm bundled with
+16 warn deprecated Node.js 0.10 LTS, be aware that the next version of 0.10 LTS
+17 warn deprecated will be bundled with a version of npm@2, which has some small
+18 warn deprecated backwards-incompatible changes made to `npm run-script` and
+19 warn deprecated semver behavior.
+20 warn package.json fidgit@0.0.1 No repository field.
+21 warn package.json fidgit@0.0.1 No README data
+22 warn package.json JSV@4.0.2 'repositories' (plural) Not supported. Please pick one as the 'repository' field
+23 warn package.json dateformat@1.0.2-1.2.3 No repository field.
+24 warn package.json faye-websocket@0.4.4 'repositories' (plural) Not supported. Please pick one as the 'repository' field
+25 warn package.json eyes@0.1.8 No repository field.
+26 warn package.json sqwish@0.2.2 No repository field.
+27 warn package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+28 verbose readDependencies using package.json deps
+29 verbose cache add [ 'lib32ncurses5-dev', null ]
+30 verbose cache add name=undefined spec="lib32ncurses5-dev" args=["lib32ncurses5-dev",null]
+31 verbose parsed url { protocol: null,
+31 verbose parsed url   slashes: null,
+31 verbose parsed url   auth: null,
+31 verbose parsed url   host: null,
+31 verbose parsed url   port: null,
+31 verbose parsed url   hostname: null,
+31 verbose parsed url   hash: null,
+31 verbose parsed url   search: null,
+31 verbose parsed url   query: null,
+31 verbose parsed url   pathname: 'lib32ncurses5-dev',
+31 verbose parsed url   path: 'lib32ncurses5-dev',
+31 verbose parsed url   href: 'lib32ncurses5-dev' }
+32 silly lockFile df4651de-lib32ncurses5-dev lib32ncurses5-dev
+33 verbose lock lib32ncurses5-dev /home/scott/.npm/df4651de-lib32ncurses5-dev.lock
+34 silly lockFile df4651de-lib32ncurses5-dev lib32ncurses5-dev
+35 silly lockFile df4651de-lib32ncurses5-dev lib32ncurses5-dev
+36 verbose addNamed [ 'lib32ncurses5-dev', '' ]
+37 verbose addNamed [ null, '*' ]
+38 silly lockFile b653e411-lib32ncurses5-dev lib32ncurses5-dev@
+39 verbose lock lib32ncurses5-dev@ /home/scott/.npm/b653e411-lib32ncurses5-dev.lock
+40 silly addNameRange { name: 'lib32ncurses5-dev', range: '*', hasData: false }
+41 verbose request where is /lib32ncurses5-dev
+42 verbose request registry https://registry.npmjs.org/
+43 verbose request id bbcc7fa481cb33ce
+44 verbose url raw /lib32ncurses5-dev
+45 verbose url resolving [ 'https://registry.npmjs.org/', './lib32ncurses5-dev' ]
+46 verbose url resolved https://registry.npmjs.org/lib32ncurses5-dev
+47 verbose request where is https://registry.npmjs.org/lib32ncurses5-dev
+48 info trying registry request attempt 1 at 17:06:41
+49 http GET https://registry.npmjs.org/lib32ncurses5-dev
+50 http 404 https://registry.npmjs.org/lib32ncurses5-dev
+51 silly registry.get cb [ 404,
+51 silly registry.get   { 'content-type': 'application/json',
+51 silly registry.get     'cache-control': 'max-age=0',
+51 silly registry.get     'content-length': '2',
+51 silly registry.get     'accept-ranges': 'bytes',
+51 silly registry.get     date: 'Thu, 24 Mar 2016 21:06:43 GMT',
+51 silly registry.get     via: '1.1 varnish',
+51 silly registry.get     age: '0',
+51 silly registry.get     connection: 'keep-alive',
+51 silly registry.get     'x-served-by': 'cache-atl6241-ATL',
+51 silly registry.get     'x-cache': 'MISS',
+51 silly registry.get     'x-cache-hits': '0',
+51 silly registry.get     'x-timer': 'S1458853603.270405,VS0,VE91' } ]
+52 silly lockFile b653e411-lib32ncurses5-dev lib32ncurses5-dev@
+53 silly lockFile b653e411-lib32ncurses5-dev lib32ncurses5-dev@
+54 error 404 Not Found
+54 error 404
+54 error 404 'lib32ncurses5-dev' is not in the npm registry.
+54 error 404 You should bug the author to publish it
+54 error 404 It was specified as a dependency of 'fidgit'
+54 error 404
+54 error 404 Note that you can also install from a
+54 error 404 tarball, folder, or http url, or git url.
+55 error System Linux 3.16.0-67-generic
+56 error command "/usr/bin/node" "/usr/bin/npm" "instal" "lib32ncurses5-dev"
+57 error cwd /home/scott/Sites/dred
+58 error node -v v0.10.43
+59 error npm -v 1.4.29
+60 error code E404
+61 verbose exit [ 1, true ]
