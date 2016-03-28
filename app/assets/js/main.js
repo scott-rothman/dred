@@ -39,6 +39,7 @@ function init() {
         $(this).addClass('hidden');
         $('.delete_all').removeClass('hidden');
         localStorage.clear();
+        dataman.pageRefresh();
         navman.displayScreen('home');
     });
 }
