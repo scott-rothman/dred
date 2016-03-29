@@ -11,21 +11,27 @@ button  {
     width: 100%;
     padding: 2.2vw 0 2.2vw 0;
     margin-top: 5px;
+    background-image: none;
     background: $secondary;
     color: #FFFFFF;
-    border: 0;
+    border: solid $secondary 1px;
     box-shadow: none;
+    border-radius: 0px;
+    -webkit-appearance: none;
 }
 
 input[type='button'].inter_form {
     width: 100%;
     height: 13vw;
     padding: 2.2vw 10px 2.2vw 10px;
+    background-image: none;
     background: none;
     border: solid #FFFFFF 1px;
+    border-radius: 0px;
     color: #FFFFFF;
     box-sizing: border-box;
     white-space: normal;
+    -webkit-appearance: none;
     &.activated {
         background: $secondary;
         border: 0;
@@ -50,6 +56,8 @@ input[type='text'], input[type='date'] {
 }
 label {
     font-size: 4vw;
+    display: inline-block;
+    width: 100%;
 }
 .radio_wrapper {
     width: 100%;

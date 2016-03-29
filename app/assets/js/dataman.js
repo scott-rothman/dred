@@ -201,7 +201,7 @@ var Dataman = function() {
                 cur_dred_date = cur_dred["date"];
                 cur_dred_date_obj = new Date(cur_dred_date);
                 var unix_cur_dred_date  = cur_dred_date_obj.getTime();
-                var display_date  = cur_dred_date_obj.getMonth() + '/' + cur_dred_date_obj.getDay() + '/' + cur_dred_date_obj.getFullYear();
+                var display_date  = cur_dred_date_obj.getMonth()+1 + '/' + cur_dred_date_obj.getDate() + '/' + cur_dred_date_obj.getFullYear();
                 dred_link = '<li data-date="'+ unix_cur_dred_date +'"><a href="#" class="inter_list" data-id="'+x+'"><strong>' + cur_dred_name + '</strong>';
                 if (cur_dred_date.length > 0 && display_date != 'NaN/NaN/NaN') {
                     dred_link += ': ' + display_date;
