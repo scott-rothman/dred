@@ -54,6 +54,9 @@ input[type='text'], input[type='date'] {
     box-shadow: none;
     box-sizing: border-box;
 }
+input[type='date'] {
+    -webkit-appearance: none;
+}
 label {
     font-size: 4vw;
     display: inline-block;
